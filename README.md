@@ -17,7 +17,7 @@ The vpnserver is listening on port **8080** in container.
 You only need to set vpn user name and password in environment variable `USRNAME` and `PASSWORD`.
 
 ```shell
-docker run -d -e USRNAME="xxx" -e PASSWORD="xxx" -p xxxx:8080 vpnserver
+docker run -d -e USRNAME='xxx' -e PASSWORD='xxx' -p xxxx:8080 vpnserver
 ```
 
 If `USRNAME` is not set or empty, "**alice**" will be used. If `PASSWORD` is not set or empty, `genconfig` will randomly generate a password for you and print it on the `STDOUT`.
