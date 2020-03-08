@@ -24,6 +24,7 @@ type params struct {
 	UserName               string
 	UserAuthNtLmSecureHash string //generateNtPasswordHash(pass)
 	UserAuthPassword       string //hashPassword(UserName, pass)
+	Subnet                 string
 }
 
 func hashPassword(name, pass string) string {
@@ -88,7 +89,7 @@ func main() {
 	rand.Read(mac)
 	mac[0] &= 0xFE
 	p.VirtualHostMacAddress = fmt.Sprintf("%02X-%02X-%02X-%02X-%02X-%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5])
-
+	p.Subnet = fmt.Sprintf("192.168.%d", (rand.Uint32() % 256))
 	var user = os.Getenv("USRNAME")
 	pass = os.Getenv("PASSWORD")
 
