@@ -310,17 +310,17 @@ declare root
 					string DhcpDomainName $
 					bool DhcpEnabled true
 					uint DhcpExpireTimeSpan 7200
-					string DhcpGatewayAddress 192.168.30.1
-					string DhcpLeaseIPEnd 192.168.30.20
-					string DhcpLeaseIPStart 192.168.30.10
+					string DhcpGatewayAddress {{.Subnet}}.1
+					string DhcpLeaseIPEnd {{.Subnet}}.20
+					string DhcpLeaseIPStart {{.Subnet}}.10
 					string DhcpPushRoutes $
 					string DhcpSubnetMask 255.255.255.0
 				}
 				declare VirtualHost
 				{
-					string VirtualHostIp 192.168.30.1
+					string VirtualHostIp {{.Subnet}}.1
 					string VirtualHostIpSubnetMask 255.255.255.0
-					string VirtualHostMacAddress 00-AC-F8-1C-11-FD
+					string VirtualHostMacAddress {{.VirtualHostMacAddress}}
 				}
 				declare VirtualRouter
 				{
