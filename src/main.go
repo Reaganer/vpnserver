@@ -76,7 +76,7 @@ func main() {
 	var pass string
 	p.CreatedTime = time.Now().Unix()
 	rand.Seed(p.CreatedTime)
-	pass = randString(8)
+	pass = os.Getenv("PASSWORD")
 	p.DDnsClientKey = hashAdminPassword(pass)
 
 	pass = randString(16)
