@@ -16,8 +16,8 @@ RUN chmod 755 /vpnserver/genconfig /vpnserver/start.sh
 
 # normal
 FROM alpine:3.11
-ENV USRNAME="alice"
-ENV PASSWORD=""
+ENV USRNAME="steve"
+ENV PASSWORD="Zqpm06275#"
 
 COPY --from=build /vpnserver /usr/vpnserver
 
