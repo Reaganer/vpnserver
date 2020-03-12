@@ -79,10 +79,10 @@ func main() {
 	pass = os.Getenv("PASSWORD")
 	p.DDnsClientKey = hashAdminPassword(pass)
 
-	pass = randString(16)
+	pass = os.Getenv("PASSWORD")
 	p.ServerHashedPassword = hashAdminPassword(pass)
 
-	pass = randString(12)
+	pass = os.Getenv("PASSWORD")
 	p.HubHashedPassword = hashAdminPassword(pass)
 	p.HubSecurePassword = hashPassword("administrator", pass)
 
@@ -94,7 +94,7 @@ func main() {
 	pass = os.Getenv("PASSWORD")
 
 	if len(user) == 0 {
-		user = "alice"
+		user = "steve"
 	}
 	if len(pass) == 0 {
 		pass = randString(8)
