@@ -69,7 +69,7 @@ declare root
 		bool DisableIPsecAggressiveMode false
 		bool DisableIPv6Listener true
 		bool DisableJsonRpcWebApi false
-		bool DisableNatTraversal false
+		bool DisableNatTraversal true
 		bool DisableOpenVPNServer true
 		bool DisableSessionReconnect false
 		bool DisableSSTPServer false
@@ -215,9 +215,6 @@ declare root
 				uint no_securenat_enabledhcp 0
 				uint no_securenat_enablenat 0
 			}
-			declare CascadeList
-			{
-			}
 			declare LogSetting
 			{
 				uint PacketLogSwitchType 4
@@ -298,6 +295,81 @@ declare root
 				string VlanTypeId 0x8100
 				bool YieldAfterStorePacket false
 			}
+			{{if .IsRelayNode}}
+			declare CascadeList
+			{
+				declare Cascade0
+				{
+					bool CheckServerCert false
+					bool Online true
+
+					declare ClientAuth
+					{
+						uint AuthType 1
+						byte HashedPassword {{.NextNodePassword}}
+						string Username {{.NextNodeUserName}}
+					}
+					declare ClientOption
+					{
+						string AccountName {{.NextNodeName}}
+						uint AdditionalConnectionInterval 1
+						uint ConnectionDisconnectSpan 0
+						string DeviceName _SEHUBLINKCLI_
+						bool DisableQoS false
+						bool HalfConnection false
+						bool HideNicInfoWindow false
+						bool HideStatusWindow false
+						string Hostname {{.NextNodeHost}}
+						string HubName DEFAULT
+						uint MaxConnection 8
+						bool NoRoutingTracking true
+						bool NoTls1 false
+						bool NoUdpAcceleration false
+						uint NumRetry 4294967295
+						uint Port {{.NextNodePort}}
+						uint PortUDP 0
+						string ProxyName $
+						byte ProxyPassword $
+						uint ProxyPort 0
+						uint ProxyType 0
+						string ProxyUsername $
+						bool RequireBridgeRoutingMode true
+						bool RequireMonitorMode false
+						uint RetryInterval 10
+						bool UseCompress false
+						bool UseEncrypt true
+					}
+					declare Policy
+					{
+						bool ArpDhcpOnly false
+						bool CheckIP false
+						bool CheckIPv6 false
+						bool CheckMac false
+						bool DHCPFilter false
+						bool DHCPForce false
+						bool DHCPNoServer false
+						bool DHCPv6Filter false
+						bool DHCPv6NoServer false
+						bool FilterIPv4 false
+						bool FilterIPv6 false
+						bool FilterNonIP false
+						uint MaxDownload 0
+						uint MaxIP 0
+						uint MaxIPv6 0
+						uint MaxMac 0
+						uint MaxUpload 0
+						bool NoBroadcastLimiter false
+						bool NoIPv6DefaultRouterInRA false
+						bool NoIPv6DefaultRouterInRAWhenIPv6 false
+						bool NoServer false
+						bool NoServerV6 false
+						bool RAFilter false
+						bool RSandRAFilter false
+						uint VLanId 0
+					}
+				}
+			}
+			{{else}}
 			declare SecureNAT
 			{
 				bool Disabled false
@@ -330,6 +402,7 @@ declare root
 					uint NatUdpTimeout 60
 				}
 			}
+			{{end}}
 			declare SecurityAccountDatabase
 			{
 				declare CertList
@@ -346,18 +419,19 @@ declare root
 				}
 				declare UserList
 				{
+					{{range .UserList}}
 					declare {{.UserName}}
 					{
 						byte AuthNtLmSecureHash {{.UserAuthNtLmSecureHash}}
 						byte AuthPassword {{.UserAuthPassword}}
 						uint AuthType 1
-						uint64 CreatedTime {{.CreatedTime}}
+						uint64 CreatedTime {{$.CreatedTime}}
 						uint64 ExpireTime 0
 						uint64 LastLoginTime 0
 						string Note $
 						uint NumLogin 0
 						string RealName $
-						uint64 UpdatedTime {{.CreatedTime}}
+						uint64 UpdatedTime {{$.CreatedTime}}
 
 						declare Traffic
 						{
@@ -377,6 +451,7 @@ declare root
 							}
 						}
 					}
+					{{end}}
 				}
 			}
 			declare Traffic
