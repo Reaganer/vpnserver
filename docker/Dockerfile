@@ -1,5 +1,5 @@
 FROM alpine:3.11 AS build
-ARG VERSION=v4.32-9731
+ARG VERSION=v4.34-9745
 
 WORKDIR /root
 

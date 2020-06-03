@@ -34,7 +34,7 @@ If `UserList` is not set or empty, `genconfig` will create an account with rando
 
 The last hop node needs to be configured as **Single node mode**. Other nodes need to be configured as relay node mode.
 
-You can use an env-file to configure all the environment variables.
+You can use an env-file to configure all the environment variables at once.
 
 ```shell
 $ cat node.env
