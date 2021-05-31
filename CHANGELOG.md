@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1] - 2021-05-31
+
+### Fixed
+
+- README Mutli-Hop mode configuration error.
+
 ## [2.0] - 2020-06-03
 
 ### Added

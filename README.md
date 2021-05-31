@@ -38,7 +38,7 @@ You can use an env-file to configure all the environment variables at once.
 
 ```shell
 $ cat node.env
-RelayNode
+RelayNode=TRUE
 NextNodeHost=xxx.xxx.xxx.xxx
 NextNodePort=xxxxx
 NextNodeUserName=username
