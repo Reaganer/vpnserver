@@ -25,7 +25,7 @@ You only need to set vpn user account and/or next hop vpn account (depends on wh
 ### **Single node (Standard) mode**
 
 ```shell
-docker run -d -e UserList='user1:pass1;user2:pass2...' -p xxxx:8080 reaganer/vpnserver:latest
+docker run -d --restart always -e UserList='user1:pass1;user2:pass2...' -p xxxx:8080 reaganer/vpnserver:latest
 ```
 
 If `UserList` is not set or empty, `genconfig` will create an account with randomly generated username and password and print it on the `STDOUT`.
@@ -45,6 +45,6 @@ NextNodeUserName=username
 NextNodePassword=password
 UserList=user1:pass1;user2:pass2...
 
-$ docker run -d --env-file ./node.env -p xxxx:8080 reaganer/vpnserver:latest
+$ docker run -d --restart always --env-file ./node.env -p xxxx:8080 reaganer/vpnserver:latest
 ```
 
