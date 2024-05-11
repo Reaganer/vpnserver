@@ -1,14 +1,13 @@
 FROM alpine:3.19.1 AS build
-ARG VERSION=v4.43-9799
+ARG VERSION=v4.43-9799-beta
 
 WORKDIR /root
 
-RUN apk add --no-cache gcc make libc-dev readline-dev openssl-dev ncurses-dev zlib-dev gnu-libiconv wget && \
-    wget -O vpnserver.tar.gz https://www.softether-download.com/files/softether/v4.43-9799-beta-2023.08.31-tree/Linux/SoftEther_VPN_Server/64bit_-_Intel_x64_or_AMD64/softether-vpnserver-v4.43-9799-beta-2023.08.31-linux-x64-64bit.tar.gz && \
-    tar xzf vpnserver.tar.gz && \
-    cd /root/${VERSION} && \
+RUN apk add --no-cache gcc make libc-dev readline-dev openssl-dev ncurses-dev zlib-dev gnu-libiconv git && \
+    git clone --branch ${VERSION} --depth 1 https://github.com/SoftEtherVPN/SoftEtherVPN_Stable.git && \
+    cd /root/SoftEtherVPN_Stable && \
     ./configure && make && \
-    mv /root/${VERSION}/bin/vpnserver / && \
+    mv /root/SoftEtherVPN_Stable/bin/vpnserver / && \
     echo 127.0.0.1 > /vpnserver/adminip.txt
 COPY genconfig /vpnserver/
 COPY start.sh /vpnserver/
