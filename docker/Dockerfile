@@ -7,9 +7,10 @@ RUN apk add --no-cache cmake gcc g++ libsodium-dev make libc-dev readline-dev op
     git clone --branch ${VERSION} --depth 1 https://github.com/SoftEtherVPN/SoftEtherVPN.git && \
     cd /root/SoftEtherVPN && \
     git submodule init && git submodule update && \
-    ./configure && make -C build vpnserver hamcore-archive-build && \
+    ./configure && make -C build vpnserver hamcore-archive-build cedar mayaqua && \
     mkdir /vpnserver && mv /root/SoftEtherVPN/build/vpnserver /vpnserver/ && \
     mv /root/SoftEtherVPN/build/hamcore.se2 /vpnserver/ && \
+    mv /root/SoftEtherVPN/build/*.so /vpnserver/ && \
     echo 127.0.0.1 > /vpnserver/adminip.txt
 COPY genconfig /vpnserver/
 COPY start.sh /vpnserver/
