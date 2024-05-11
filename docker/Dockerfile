@@ -10,7 +10,8 @@ RUN apk add --no-cache cmake gcc g++ libsodium-dev make libc-dev readline-dev op
     ./configure && make -C build all && \
     mkdir /vpnserver && mv /root/SoftEtherVPN/build/vpnserver /vpnserver/ && \
     mv /root/SoftEtherVPN/build/hamcore.se2 /vpnserver/ && \
-    mv /root/SoftEtherVPN/build/*.so /vpnserver/ && \
+    mkdir /vpnlib && \
+    mv /root/SoftEtherVPN/build/*.so /vpnlib/ && \
     echo 127.0.0.1 > /vpnserver/adminip.txt
 COPY genconfig /vpnserver/
 COPY start.sh /vpnserver/
@@ -22,6 +23,7 @@ ENV USRNAME="alice"
 ENV PASSWORD=""
 
 COPY --from=build /vpnserver /usr/vpnserver
+COPY --from=build /vpnlib/* /usr/lib/
 
 RUN apk add --no-cache readline
 
