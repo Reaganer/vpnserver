@@ -25,7 +25,7 @@ ENV PASSWORD=""
 COPY --from=build /vpnserver /usr/vpnserver
 COPY --from=build /vpnlib/* /usr/lib/
 
-RUN apk add --no-cache readline
+RUN apk add --no-cache readline libsodium
 
 EXPOSE 8080
 
